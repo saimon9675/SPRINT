@@ -1,0 +1,42 @@
+﻿<Window x:Class="SPRINT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SPRINT"
+        mc:Ignorable="d"
+        Title="Биллинговая система водокачки &quot;СПРИНТ&quot;" Height="350" Width="450" SizeChanged="Window_SizeChanged">
+    <Grid>       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Menu VerticalAlignment="Top" HorizontalAlignment="Stretch" >
+            <MenuItem Header="Файл">
+                <MenuItem Header="Заполнить базу заново" Click="RefillDataBase_Click"/>
+                <MenuItem Header="Заполнить базу примером" Click="FillDBForExampleBtn_Click"/>
+                <MenuItem Header="Очистить базу данных" Click="ClearDBBtn_Click"/>
+                <Separator/>
+                <MenuItem Header="Выход" Click="CloseWindowBtn_Click"/>
+            </MenuItem>
+            <MenuItem Header="Вид">
+                <MenuItem Header="Дачники" Click="ShowCottagersBtn_Click"/>
+                <MenuItem Header="Отчёт по месяцам" Click="ShowMonthConsumptionBtn_Click"/>
+            </MenuItem>
+            <MenuItem Header="Данные">
+                <MenuItem Header="Добавить период" Click="AddMonthConsumptionBtn_Click"/>                
+                <MenuItem Header="Добавить дачника" Click="AddCottagerBtn_Click" />
+                <Separator/>
+                <MenuItem Header="Удалить период" Click="DeleteMonthConsumptionBtn_Click"/>
+                <MenuItem Header="Удалить дачника" Click="DeleteCottagerBtn_Click"/>
+                <Separator/>
+                <MenuItem Header="Стоимость кубометра воды" Click="ShowCostOfWaterBtn_Click"/>
+            </MenuItem>
+        </Menu>
+        <TextBlock Grid.Row="1" Name="currentViewTextBlock" Margin="5,5,0,5"/>
+        <DataGrid Grid.Row="2" Name="ViewDataGrid" IsReadOnly="True" SelectionMode="Single" MouseDoubleClick="ViewDataGrid_MouseDoubleClick" Loaded="ViewDataGrid_Loaded" HorizontalScrollBarVisibility="Disabled">         
+
+        </DataGrid>
+    </Grid>
+</Window>

@@ -1,0 +1,127 @@
+﻿<Window x:Class="SPRINT.RefillDBWizard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SPRINT"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Мастер перезаполнения базы данных" Height="350" Width="450"
+        ResizeMode="NoResize">
+    <Grid>
+        <xctk:Wizard Name="WizardWindow"  FinishButtonClosesWindow="True" HelpButtonVisibility="Collapsed" ExteriorPanelMinWidth="20" NextButtonContent="Вперед &gt;" CancelButtonContent="Отменить" 
+                     BackButtonContent="&lt; Назад" FinishButtonContent="Завершить" Next="Wizard_Next" >
+            
+            <xctk:WizardPage x:Name="IntroPage" 
+                                   Title="Добро пожаловать в мастер перезаполнения базы данных биллинговой системы водокачки &quot;СПРИНТ&quot;"
+                                   Description="Предыдущая база данных не сохранится!" />
+            
+            
+            <xctk:WizardPage x:Name="Page1" PageType="Interior"
+                                   Title="Цена за кубометр воды"
+                                   Description="Введите цену за кубометр воды"
+                                   NextPage="{Binding ElementName=Page2}"
+                                   PreviousPage="{Binding ElementName=IntroPage}"                                
+                             CanSelectNextPage="False">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="35px"/>
+                        <ColumnDefinition Width="50px"/>
+                        <ColumnDefinition Width="230px"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Цена:"/>
+                    <TextBox Grid.Column="1" Name="CostOfWaterTextBox" TextChanged="CostOfWaterTextBox_TextChanged"/>
+                    <TextBlock Grid.Column="2" Text="(в формате руб,коп)" Margin="5,0,0,0"/>
+                </Grid>
+            </xctk:WizardPage>
+            
+            
+            <xctk:WizardPage x:Name="Page2" PageType="Interior"
+                                   Title="Дачники"
+                                   Description="Добавьте дачников и площади их участков">
+                <Grid Grid.IsSharedSizeScope="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="ФИО дачника:"/>
+                        <TextBlock Grid.Column="1" Text="Площадь участка:" Margin="1,0"/>
+                        <TextBox Grid.Row="1" Name="AuthorOfCottageTextBox" Margin="0,1"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Name="SquareTextBox" Margin="2,1"/>
+                        <Button Grid.Row="1" Grid.Column="2" Name="AddCottagerButton" Content="Добавить" Margin="1,0,0,0" Click="AddCottagerButton_Click"/>
+                    </Grid>
+                    
+                    <Grid Grid.Row="1" ShowGridLines="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <DataGrid Name="AuthorsDataGrid" Margin="0,5" IsReadOnly="True" SelectionMode="Single" HorizontalScrollBarVisibility="Disabled">
+                            <DataGrid.Resources>
+                                <ContextMenu x:Key="RowMenu">
+                                    <MenuItem Header="Удалить" Click="DeleteCottagerFromList_Click"/>
+                                </ContextMenu>
+                            </DataGrid.Resources>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                                </Style>
+                            </DataGrid.RowStyle>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </xctk:WizardPage>
+
+            
+            <xctk:WizardPage x:Name="Page3" PageType="Interior"
+                                   Title="Удаление предыдущих записей"                            
+                             CanSelectNextPage="False">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>                        
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>                        
+                    </Grid.RowDefinitions>
+                    <CheckBox Name="DeleteAllFromTablesCheckBox" Checked="DeleteAllFromTablesCheckBox_Checked" FlowDirection="LeftToRight" Unchecked="DeleteAllFromTablesCheckBox_Unchecked" Content="Я понимаю, что все предыдущие записи из базы данных удалятся" />
+                </Grid>
+            </xctk:WizardPage>
+
+            
+            <xctk:WizardPage x:Name="LastPage" PageType="Interior"
+                                   Title="Создание новой базы данных завершено" 
+                                   CanSelectPreviousPage="False"
+                                   CanFinish="True"
+                                   CancelButtonVisibility="Collapsed"
+                                   BackButtonVisibility="Collapsed">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>                   
+                    <TextBlock Grid.Row="0" Name="costTextBlock" Text="Цена за кубометр воды: "/>
+                    <TextBlock Grid.Row="1" Name="countCottagersTextBlock" Text="Добавлено дачников: "/>
+                </Grid>
+
+
+
+            </xctk:WizardPage>
+
+        </xctk:Wizard>
+    </Grid>
+
+</Window>

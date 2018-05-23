@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ModelSprintDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BillingSet">
+    <Key>
+      <PropertyRef Name="BillingID" />
+    </Key>
+    <Property Name="BillingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="int" Nullable="false" />
+    <Property Name="Bill" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="MonthConsumption_MonthBillingID" Type="int" Nullable="false" />
+    <Property Name="Cottager_CottagerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CostOfWaterSet">
+    <Key>
+      <PropertyRef Name="CostID" />
+    </Key>
+    <Property Name="CostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cost" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CottagerSet">
+    <Key>
+      <PropertyRef Name="CottagerID" />
+    </Key>
+    <Property Name="CottagerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Square" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MonthConsumptionSet">
+    <Key>
+      <PropertyRef Name="MonthBillingID" />
+    </Key>
+    <Property Name="MonthBillingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="int" Nullable="false" />
+    <Property Name="Consumption" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CottagerBilling">
+    <End Role="CottagerSet" Type="Self.CottagerSet" Multiplicity="1" />
+    <End Role="BillingSet" Type="Self.BillingSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CottagerSet">
+        <PropertyRef Name="CottagerID" />
+      </Principal>
+      <Dependent Role="BillingSet">
+        <PropertyRef Name="Cottager_CottagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MonthConsumptionBilling">
+    <End Role="MonthConsumptionSet" Type="Self.MonthConsumptionSet" Multiplicity="1" />
+    <End Role="BillingSet" Type="Self.BillingSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonthConsumptionSet">
+        <PropertyRef Name="MonthBillingID" />
+      </Principal>
+      <Dependent Role="BillingSet">
+        <PropertyRef Name="MonthConsumption_MonthBillingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelSprintDBStoreContainer">
+    <EntitySet Name="BillingSet" EntityType="Self.BillingSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CostOfWaterSet" EntityType="Self.CostOfWaterSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CottagerSet" EntityType="Self.CottagerSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MonthConsumptionSet" EntityType="Self.MonthConsumptionSet" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CottagerBilling" Association="Self.FK_CottagerBilling">
+      <End Role="CottagerSet" EntitySet="CottagerSet" />
+      <End Role="BillingSet" EntitySet="BillingSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MonthConsumptionBilling" Association="Self.FK_MonthConsumptionBilling">
+      <End Role="MonthConsumptionSet" EntitySet="MonthConsumptionSet" />
+      <End Role="BillingSet" EntitySet="BillingSet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

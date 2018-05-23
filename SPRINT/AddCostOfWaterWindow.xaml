@@ -1,0 +1,25 @@
+﻿<Window x:Class="SPRINT.AddCostOfWaterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SPRINT"
+        mc:Ignorable="d"
+        Title="Цена воды" Height="70" Width="220"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5px"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5px"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="50px"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Цена за куб: "/>
+        <TextBox Grid.Row="1" Grid.Column="2" Name="CostOfWaterTB" TextChanged="CostOfWaterTB_TextChanged"/>
+        <Button Grid.Row="1" Grid.Column="3" Name="CreateCostBtn" Content="Принять" Margin="5,0,5,0" Click="CreateCostBtn_Click" IsEnabled="False"/>
+    </Grid>
+</Window>

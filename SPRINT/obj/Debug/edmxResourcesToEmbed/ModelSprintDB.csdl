@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModelSprintDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="ModelSprintDBContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CottagerSet" EntityType="ModelSprintDB.Cottager" />
+    <EntitySet Name="MonthConsumptionSet" EntityType="ModelSprintDB.MonthConsumption" />
+    <EntitySet Name="BillingSet" EntityType="ModelSprintDB.Billing" />
+    <EntitySet Name="CostOfWaterSet" EntityType="ModelSprintDB.CostOfWater" />
+    <AssociationSet Name="MonthConsumptionBilling" Association="ModelSprintDB.MonthConsumptionBilling">
+      <End Role="MonthConsumption" EntitySet="MonthConsumptionSet" />
+      <End Role="Billing" EntitySet="BillingSet" />
+    </AssociationSet>
+    <AssociationSet Name="CottagerBilling" Association="ModelSprintDB.CottagerBilling">
+      <End Role="Cottager" EntitySet="CottagerSet" />
+      <End Role="Billing" EntitySet="BillingSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Cottager">
+    <Key>
+      <PropertyRef Name="CottagerID" />
+    </Key>
+    <Property Name="CottagerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Author" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Square" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <NavigationProperty Name="Billing" Relationship="ModelSprintDB.CottagerBilling" FromRole="Cottager" ToRole="Billing" />
+  </EntityType>
+  <EntityType Name="MonthConsumption">
+    <Key>
+      <PropertyRef Name="MonthBillingID" />
+    </Key>
+    <Property Name="MonthBillingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="Int32" Nullable="false" />
+    <Property Name="Consumption" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <NavigationProperty Name="Billing" Relationship="ModelSprintDB.MonthConsumptionBilling" FromRole="MonthConsumption" ToRole="Billing" />
+  </EntityType>
+  <EntityType Name="CostOfWater">
+    <Key>
+      <PropertyRef Name="CostID" />
+    </Key>
+    <Property Name="CostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cost" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
+  </EntityType>
+  <EntityType Name="Billing">
+    <Key>
+      <PropertyRef Name="BillingID" />
+    </Key>
+    <Property Name="BillingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Author" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Date" Type="Int32" Nullable="false" />
+    <Property Name="Bill" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
+    <NavigationProperty Name="MonthConsumption" Relationship="ModelSprintDB.MonthConsumptionBilling" FromRole="Billing" ToRole="MonthConsumption" />
+    <NavigationProperty Name="Cottager" Relationship="ModelSprintDB.CottagerBilling" FromRole="Billing" ToRole="Cottager" />
+  </EntityType>
+  <Association Name="MonthConsumptionBilling">
+    <End Type="ModelSprintDB.MonthConsumption" Role="MonthConsumption" Multiplicity="1" />
+    <End Type="ModelSprintDB.Billing" Role="Billing" Multiplicity="*" />
+  </Association>
+  <Association Name="CottagerBilling">
+    <End Type="ModelSprintDB.Cottager" Role="Cottager" Multiplicity="1" />
+    <End Type="ModelSprintDB.Billing" Role="Billing" Multiplicity="*" />
+  </Association>
+</Schema>

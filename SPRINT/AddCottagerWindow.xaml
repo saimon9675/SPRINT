@@ -1,0 +1,34 @@
+﻿<Window x:Class="SPRINT.AddCottagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SPRINT"
+        mc:Ignorable="d"
+        Title="Добавление дачника" Height="110" Width="400"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="ФИО дачника" Margin="5,5,0,0"/>
+            <TextBlock Grid.Column="1" Text="Площадь участка" Margin="0,5,0,0"/>
+            <TextBox Grid.Row="1" Name="AuthorOfCottageTextBox" Margin="5,2,5,0"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Name="SquareTextBox" Margin="2,2,5,0"/>
+            
+        </Grid>
+        <Grid Grid.Row="1">
+            <Button Name="AddCottagerButton" Content="Добавить" Margin="5,5,5,0" Click="AddCottagerButton_Click" HorizontalAlignment="Right"/>
+        </Grid>
+    </Grid>
+</Window>

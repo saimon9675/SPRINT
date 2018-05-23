@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelSprintDBStoreContainer" CdmEntityContainer="ModelSprintDBContainer">
+    <EntitySetMapping Name="CottagerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelSprintDB.Cottager)">
+        <MappingFragment StoreEntitySet="CottagerSet">
+          <ScalarProperty Name="CottagerID" ColumnName="CottagerID" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Square" ColumnName="Square" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MonthConsumptionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelSprintDB.MonthConsumption)">
+        <MappingFragment StoreEntitySet="MonthConsumptionSet">
+          <ScalarProperty Name="MonthBillingID" ColumnName="MonthBillingID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Consumption" ColumnName="Consumption" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BillingSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelSprintDB.Billing)">
+        <MappingFragment StoreEntitySet="BillingSet">
+          <ScalarProperty Name="BillingID" ColumnName="BillingID" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Bill" ColumnName="Bill" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CostOfWaterSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ModelSprintDB.CostOfWater)">
+        <MappingFragment StoreEntitySet="CostOfWaterSet">
+          <ScalarProperty Name="CostID" ColumnName="CostID" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MonthConsumptionBilling" TypeName="ModelSprintDB.MonthConsumptionBilling" StoreEntitySet="BillingSet">
+      <EndProperty Name="MonthConsumption">
+        <ScalarProperty Name="MonthBillingID" ColumnName="MonthConsumption_MonthBillingID" />
+      </EndProperty>
+      <EndProperty Name="Billing">
+        <ScalarProperty Name="BillingID" ColumnName="BillingID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CottagerBilling" TypeName="ModelSprintDB.CottagerBilling" StoreEntitySet="BillingSet">
+      <EndProperty Name="Cottager">
+        <ScalarProperty Name="CottagerID" ColumnName="Cottager_CottagerID" />
+      </EndProperty>
+      <EndProperty Name="Billing">
+        <ScalarProperty Name="BillingID" ColumnName="BillingID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
